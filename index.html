@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>myMemoPad</title>
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <h1>〜今日の一行日記〜</h1>
+
+  <main>
+    <div class="input-area">
+      <input id="title" type="date" placeholder="日付">
+      <textarea id="text" placeholder="本文を入力" maxlength="35"></textarea>
+    </div>
+
+    <div class="button-area">
+      <button id="save">保存</button>
+      <button id="clear">全て削除</button>
+      <button id="onedelete">最新の日記を削除</button>
+      <!-- <button id="eachclear">選んだ日を削除</button>
+            <button class="fav-action-btn" onclick="favorite_do_action(this, '1719430');">まとめてリスト移動</button> -->
+    </div>
+  </main>
+
+  <ul id="list">
+    <!-- ここに追加データが挿入される -->
+        <!-- <input id="checkbox" type="checkbox"> -->
+  </ul>
+  <footer>
+    今日もお疲れさま🍵
+  </footer>
+  <!-- 以下にjsを書いていきます -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script>
+
+    //1.Save クリックイベント
+    $("#save").on("click", function() {
+      // ローカルストレージに追加するおまじない
+      const key = $("#title").val();
+      const value = $("#text").val();
+
+      localStorage.setItem(key, value);
+      const html =`
+      <li>
+        <p>${key}</p>
+        <p>${value}</p>
+      </li>
+      `
+      
+    // jQueryのおまじない 画面に表示する(htmlを追加するおまじない)
+      $("#list").append(html)
+
+         $("#title").val("");
+      $("#text").val("");
+
+
+    })
+
+
+    //2.clear クリックイベント
+      $("#clear").on("click", function () {
+
+          // ローカルストレージを削除するおまじない
+          localStorage.clear();
+
+        // jQueryのおまじない 画面に表示されているものを削除するおまじない
+        $("#list").empty()
+
+      })
+      
+      
+    //3.ページ読み込み：保存データ取得表示
+     for (let i = 0; i < localStorage.length; i++) {
+        // 保存されているデータを特定する
+        const key = localStorage.key(i);
+        const value = localStorage.getItem(key)
+
+        // 画面に表示するためにhtmlと入力された文字を組み合わせる🤗
+        const html = `
+        <li>
+          <p>${key}</p>
+          <p>${value}</p>
+        </li>
+      `
+        // jQueryのおまじない　画面に表示する（htmlを追加するおまじない）🤗
+        $("#list").append(html)
+      }
+
+
+
+  // <label for="i20" class="docssharedWizToggleLabeledContainer ajBQVb"><div class="bzfPab wFGF8"><div class="d7L4fc bJNwt  FXLARc aomaEc ECvBRb"><div id="i20" class="Od2TWd hYsg7c" jscontroller="EcW08c" jsaction="keydown:I481le;dyRcpb:dyRcpb;click:cOuCgd; mousedown:UX7yZ; mouseup:lbsD7e; mouseenter:tfO1Yc; mouseleave:JywGue; focus:AHmuwe; blur:O22p3e; contextmenu:mg9Pef;touchstart:p6p2H; touchmove:FwuNnf; touchend:yfqBxc(preventDefault=true); touchcancel:JMtRjd;" jsshadow="" aria-label="東京 DEV28期" data-value="東京 DEV28期" role="radio" aria-checked="false" aria-posinset="1" aria-setsize="3" tabindex="0"><div class="x0k1lc MbhUzd"></div><div class="uyywbd"></div><div class="vd3tt"><div class="AB7Lab Id5V1"><div class="rseUEf nQOrEb"></div></div></div></div></div><div class="YEVVod"><div class="ulDsOb"><span dir="auto" class="aDTYNe snByac OvPDhc OIC90c">東京 DEV28期</span></div></div></div></label>
+
+
+       $("#onedelete").on("click", function () {
+
+        // window.onload = function () {
+        //    var today = new Date();
+        // }
+
+
+        // $("#eachclear").on("click", function () {
+         //   var items = (list);
+         //   items.shift();
+         //   }
+       localStorage.removeItem(list[0]);
+         
+        // $("#list").remove[0]
+
+        })
+
+
+            // console.log("A------------------");
+
+              //   for (let i = 0; i < 10; i++) {
+              //     console.log(i)
+              //     if (checkbox.checked == true) {
+              //       localStorage.removeItem(key)
+            
+
+
+
+    
+
+
+  </script>
+</body>
+
+</html>
